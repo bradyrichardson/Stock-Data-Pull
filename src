@@ -1,35 +1,38 @@
-#import json
-from alpha_vantage.timeseries import TimeSeries
-import matplotlib.pyplot as plt
-import pandas as pd
-import sys
+    if timeline == "Intraday" or timeline == "intraday":
+        minutes = input("Enter time interval in minutes (1min, 5min, 15min, 30min, 60min): ")
+        data, meta_data = ts.get_intraday(symbol=ticker, outputsize="full", interval=minutes)
+        print(data)
+        data["4. close"].plot.line()
+        plt.title(f"{title}'s Price Change Over Time (Intraday)", fontdict=font)
+        plt.ylabel("Price", fontdict=font)
+        plt.xlabel("Date", fontdict=font)
+        plt.show()
 
-# alpha vantage API access
+    elif timeline == "Daily" or timeline == "daily":
+        data, meta_data = ts.get_daily(symbol=ticker, outputsize="full")
+        print(data)
+        data["4. close"].plot.line()
+        plt.title(f"{title}'s Price Change Over Time (Daily)", fontdict=font)
+        plt.ylabel("Price", fontdict=font)
+        plt.xlabel("Date", fontdict=font)
+        plt.show()
 
-av_key = "your key here"
+    elif timeline == "Weekly" or timeline == "weekly":
+        data, meta_data = ts.get_weekly(symbol=ticker, outputsize="full")
+        print(data)
+        data["4. close"].plot.line()
+        plt.title(f"{title}'s Price Change Over Time (Weekly)", fontdict=font)
+        plt.ylabel("Price", fontdict=font)
+        plt.xlabel("Date", fontdict=font)
+        plt.show()
 
-# function for grabbing market data of single stock (ex. title = S&P 500, ticker = 'INX')
+    elif timeline == "Monthly" or timeline == "monthly":
+        data, meta_data = ts.get_monthly(symbol=ticker, outputsize="full")
+        print(data)
+        data["4. close"].plot.line()
+        plt.title(f"{title}'s Price Change Over Time (Monthly)", fontdict=font)
+        #for row in data.itertuples(index=True, name=)
 
-def stock_chart(title, ticker):
-    font = {"family" : "Tahoma",
-            "color" : "darkred",
-            "weight" : "normal",
-            "size" : 15,
-            }
-    ts = TimeSeries(key=av_key, output_format="pandas")
-    data, meta_data = ts.get_daily(symbol=ticker, outputsize="full")
-    print(data)
-    data["4. close"].plot.line()
-    plt.title(f"{title}'s Price Change Over Time", fontdict=font)
-    plt.ylabel("Price", fontdict=font)
-    plt.xlabel("Date", fontdict=font)
-    plt.show()
-
-    #for row in data.itertuples(index=True, name=)
-
-
-
-title = input("Enter the name of the company: ")
-ticker = input("Enter the symbol of the stock data to plot: ")
-
-stock_chart(title, ticker)
+    else:
+        pass
+# FIXME no error checking implemented
