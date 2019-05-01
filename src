@@ -1,3 +1,22 @@
+from alpha_vantage.timeseries import TimeSeries
+import matplotlib.pyplot as plt
+import pandas as pd
+import sys
+
+# alpha vantage API access
+
+av_key = "your api key"
+
+# function for grabbing market data of single stock (ex. title = S&P 500, ticker = 'INX')
+
+def stock_chart(title, ticker, timeline):
+    font = {"family" : "Tahoma",
+            "color" : "darkred",
+            "weight" : "normal",
+            "size" : 15,
+            }
+    ts = TimeSeries(key=av_key, output_format="pandas")
+
     if timeline == "Intraday" or timeline == "intraday":
         minutes = input("Enter time interval in minutes (1min, 5min, 15min, 30min, 60min): ")
         data, meta_data = ts.get_intraday(symbol=ticker, outputsize="full", interval=minutes)
