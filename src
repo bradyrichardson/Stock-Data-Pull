@@ -6,7 +6,7 @@ import sys
 
 # alpha vantage API access
 
-av_key = "ZPTXC6O5K968HV8W"
+av_key = "your key here"
 
 # function for grabbing market data of single stock (ex. title = S&P 500, ticker = 'INX')
 
